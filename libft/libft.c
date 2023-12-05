@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/11/23 18:55:24 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/05 20:14:03 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,61 @@ void	*ft_memccpy(void *restrict dest, const void *restrict src,
 
 void	*ft_memmove(void *dest, const void *src, size_t count)
 {
-	unsigned char *char_dest;
-	unsigned char *char_src;
+	unsigned char	*char_dest;
+	unsigned char	*char_src;
+	unsigned char	byte;
 
 	if ((dest == NULL && src == NULL) && count > 0)
 		return (NULL);
 	char_dest = (unsigned char *)dest;
 	char_src = (unsigned char *)src;
 	while (count--)
-		*char_dest++ = *char_src++;
+	{
+		byte = *char_src++;
+		if (char_dest == char_src)
+			char_src++;
+		*char_dest++ = byte;
+	}
 	return (dest);
+}
+
+void	*ft_memchr(const void *str, int c, size_t n)
+{
+	char	char_c;
+	char	*char_str;
+
+	char_c = c;
+	char_str = (char *)str;
+	while (n--)
+	{
+		if (*char_str == char_c)
+			return char_str;
+		char_str++;
+	}
+	return NULL;
+}
+
+int	ft_memcmp(const void *str1, const void *str2, size_t n)
+{
+	unsigned char *char_str1;
+	unsigned char *char_str2;
+
+	// if (!str1 || !str2)
+	// 	return -1;
+	char_str1 = (unsigned char *)str1;
+	char_str2 = (unsigned char *)str2;
+	
+	while (n--)
+	{
+		if(*char_str1 != *char_str2)
+			return (*char_str1 - *char_str2);
+		char_str1++;
+		char_str2++;
+	}
+	return (0);
+}
+
+size_t ft_strlen(const char *str)
+{
+	
 }
