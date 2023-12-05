@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/05 20:14:03 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/05 20:52:28 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,58 @@ int	ft_memcmp(const void *str1, const void *str2, size_t n)
 }
 
 size_t ft_strlen(const char *str)
+{
+	size_t i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return i;
+}
+
+int ft_isalpha(int c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	return (0);
+}
+
+int ft_isdigit(int c)
+{
+	if(c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int ft_isalnum(int c)
+{
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
+}
+
+int ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
+}
+
+int ft_isprint(int c)
+{
+	if (c >= ' ' && c <= '~')
+		return (1);
+	return (0);
+}
+
+int ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
+}
+
+int ft_tolower(int c)
 {
 	
 }
