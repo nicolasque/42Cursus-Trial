@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/05 20:52:28 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/05 21:01:02 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,12 @@ int ft_toupper(int c)
 
 int ft_tolower(int c)
 {
-	
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
+}
+
+char	*ft_strchr(const char *str, int c)
+{
+
 }
