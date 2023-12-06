@@ -6,14 +6,14 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/06 20:15:04 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/06 23:28:58 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 
-void	*ft_memset(void *str, int c, size_t n)
+void	*ft_memset(char *str, char c, size_t n)
 {
 	unsigned char	new_c;
 	unsigned char	*char_str;
@@ -253,6 +253,8 @@ size_t ft_strlcpy(char *dest, const char *src, size_t size)
 
 size_t ft_strlcat(char *dest, const char *src, size_t size)
 {
+	if ((!dest || !src) && size == 0)
+		return (0);
 	size_t dest_len = ft_strlen(dest);
 	size_t src_len = ft_strlen(src);
 	size_t i = 0;
@@ -269,12 +271,30 @@ size_t ft_strlcat(char *dest, const char *src, size_t size)
 	return (dest_len + src_len);
 }
 
-int main()
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	char str1[] = "";
-	char str2[50] = "";
+	size_t i;
+	size_t j;
+
+	i = 0;
+	if (little[0] == '\0' || len == 0)
+		return ((char *)big);
+	while (big[i] != '\0' && len > i)
+	{
+		j = 0;
+		if (big[i] == little[j])
+		{
+			while (big[i + j] == little[j] && big[i + j] != '\0' && i + j < len)
+				j++;
+			if (j == ft_strlen(little))
+				return ((char *)big + i);
+		}
+		i++;
+	}
+	return NULL;
+}
+
+int	ft_atoi(const char *str)
+{
 	
-	ft_strlcat(str2, str1, 10);
-	
-	printf("la concatenacion es: %s \n", str2);
 }
