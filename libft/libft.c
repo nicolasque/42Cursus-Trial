@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/05 21:01:02 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/06 17:10:35 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,46 @@ int ft_tolower(int c)
 
 char	*ft_strchr(const char *str, int c)
 {
+	while (*str != '\0')
+	{
+		if (*str == c)
+			return (char *)str;
+		str++;
+	}
+	if (*str == c)
+		return (char *)str;
+	return (NULL);
+}
 
+
+char	*ft_strrchr(const char *str, int c)
+{
+	int i;
+
+	i = ft_strlen(str);
+	str += i;
+	while (i-- >= 0)
+	{
+		if (*str == c)
+			return (char *)str;
+		str --;
+	}
+	return (NULL);
+}
+
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
+{
+	while (n >= 0)
+	{
+		if (*str1 != *str2 || *str1 == '\0' || *str2 == '\0')
+			return (*str1 - *str2);
+		str1 ++;
+		str2 ++;
+	}
+	return (0);
+}
+
+int main()
+{
+	printf("Busca 'w'en 'hello world' :%s \n", ft_strrchr("hello world", 'l'));
 }
