@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/06 17:10:35 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/06 18:14:50 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,22 @@ void	*ft_memmove(void *dest, const void *src, size_t count)
 {
 	unsigned char	*char_dest;
 	unsigned char	*char_src;
-	unsigned char	byte;
 
+	char_src = (unsigned char *)src;
+	char_dest = (unsigned char *)dest;
 	if ((dest == NULL && src == NULL) && count > 0)
 		return (NULL);
-	char_dest = (unsigned char *)dest;
-	char_src = (unsigned char *)src;
-	while (count--)
+	if (char_dest < char_src)
 	{
-		byte = *char_src++;
-		if (char_dest == char_src)
-			char_src++;
-		*char_dest++ = byte;
+		while (count--)
+			*char_dest++ = *char_src++;
+	}
+	else
+	{
+		char_dest += count;
+		char_src += count;
+		while (count--)
+			*(--char_dest) = *(--char_src);
 	}
 	return (dest);
 }
@@ -215,14 +219,35 @@ char	*ft_strrchr(const char *str, int c)
 
 int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	while (n >= 0)
+	unsigned char un1;
+	unsigned char un2;
+
+	while (n > 0)
 	{
-		if (*str1 != *str2 || *str1 == '\0' || *str2 == '\0')
-			return (*str1 - *str2);
+		un1 = (unsigned char )(*str1);
+		un2 = (unsigned char )(*str2);
+		if (un1 != un2 || *str1 == '\0')
+			return (un1 - un2);
 		str1 ++;
 		str2 ++;
+		n--;
 	}
 	return (0);
+}
+
+size_t ft_strlcpy(char *dest, const char *src, size_t size)
+{
+	int i;
+
+	i = 0;
+	while (size > 0 && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i ++;
+		size --;
+	}
+	dest[i] = '\0';
+	return ft_strlen(dest);
 }
 
 int main()
