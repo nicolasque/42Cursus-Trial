@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/06 18:14:50 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/06 20:15:04 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,17 +240,41 @@ size_t ft_strlcpy(char *dest, const char *src, size_t size)
 	int i;
 
 	i = 0;
-	while (size > 0 && src[i] != '\0')
+	while (size > 1 && src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i ++;
 		size --;
 	}
-	dest[i] = '\0';
-	return ft_strlen(dest);
+	if (size != 0)
+		dest[i] = '\0';
+	return ft_strlen(src);
+}
+
+size_t ft_strlcat(char *dest, const char *src, size_t size)
+{
+	size_t dest_len = ft_strlen(dest);
+	size_t src_len = ft_strlen(src);
+	size_t i = 0;
+	
+	if (size <= dest_len)
+		return (src_len + size);
+	while (src[i] != '\0' && (dest_len + i < size - 1))
+	{
+		dest[dest_len + i] = src[i];
+		i++;
+	}
+	if (size > 0)
+		dest[dest_len + i] = '\0';
+	return (dest_len + src_len);
 }
 
 int main()
 {
-	printf("Busca 'w'en 'hello world' :%s \n", ft_strrchr("hello world", 'l'));
+	char str1[] = "";
+	char str2[50] = "";
+	
+	ft_strlcat(str2, str1, 10);
+	
+	printf("la concatenacion es: %s \n", str2);
 }
