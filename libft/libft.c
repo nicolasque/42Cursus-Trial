@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/06 23:28:58 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/07 01:30:45 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,5 +296,12 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 int	ft_atoi(const char *str)
 {
-	
+	int i;
+
+	i = 0;
+	while (str[i] == ' ') i++;
+
+	printf ("espacios: %i \n", i);
+	return 0;
 }
+
