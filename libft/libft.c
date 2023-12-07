@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/07 01:30:45 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/07 19:33:07 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,13 @@ int ft_isprint(int c)
 	return (0);
 }
 
+int ft_isspace(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
+
 int ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
@@ -297,11 +304,60 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 int	ft_atoi(const char *str)
 {
 	int i;
-
+	int minus_counter;
+	int exit;
+	
 	i = 0;
-	while (str[i] == ' ') i++;
-
-	printf ("espacios: %i \n", i);
-	return 0;
+	minus_counter = 0;
+	while (ft_isspace(str[i])) i++;
+	while (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			minus_counter ++;	
+	exit = 0;
+	while (ft_isdigit(str[i]))
+		exit = 10 * exit + (str[i++] - '0');
+	if (minus_counter % 2 != 0)
+		return (-exit);
+	return (exit);
 }
 
+void	*ft_calloc(size_t nitems, size_t size)
+{
+	size_t *exit;
+	size_t i;
+	
+	exit = malloc(nitems * size);
+	
+	if (exit == NULL)
+		return NULL;
+	
+	i = 0;
+	while (i <= nitems)
+		exit[i++] = 0;
+	return (exit);
+}
+
+char	*ft_strdup(const char *str)
+{
+	char	*new_str;
+	int	i;
+
+	i = 0;
+	new_str = (char *)malloc(ft_strlen(str) + 1);
+	if (new_str == NULL)
+		return NULL;
+	while (str[i] != '\0')
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+	
+}
+
+int main()
+{
+	printf("hwllo worls \n");
+	return 0;
+}
