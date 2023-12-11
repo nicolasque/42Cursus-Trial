@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Libft.c                                            :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nquecedo <nquecedo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/08 03:49:25 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/11 19:13:58 by nquecedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,25 +303,48 @@ size_t ft_strlcpy(char *dest, const char *src, size_t size)
 * Esta función añade la cadena de origen a la cadena de destino, pero para un total de no más de size
 * caracteres. Devuelve la longitud inicial de dest más la longitud de src.
 */
-size_t ft_strlcat(char *dest, const char *src, size_t size)
-{
-	if ((!dest || !src) && size == 0)
-		return (0);
-	size_t dest_len = ft_strlen(dest);
-	size_t src_len = ft_strlen(src);
-	size_t i = 0;
+// size_t ft_strlcat(char *dest, const char *src, size_t size)
+// {
+// 	if ((!dest || !src) && size == 0)
+// 		return (0);
+// 	size_t dest_len = ft_strlen(dest);
+// 	size_t src_len = ft_strlen(src);
+// 	size_t i = 0;
 	
+// 	if (size <= dest_len)
+// 		return (src_len + size);
+// 	while (src[i] != '\0' && (dest_len + i < size - 1))
+// 	{
+// 		dest[dest_len + i] = src[i];
+// 		i++;
+// 	}
+// 	if (size > 0)
+// 		dest[dest_len + i] = '\0';
+// 	return (dest_len + src_len);
+// }
+
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+{
+	unsigned int	i;
+	unsigned int	dest_len;
+	unsigned int	src_len;
+
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
 	if (size <= dest_len)
-		return (src_len + size);
-	while (src[i] != '\0' && (dest_len + i < size - 1))
+		return (size + src_len);
+	i = dest_len;
+	while (*src && i < (size - 1))
 	{
-		dest[dest_len + i] = src[i];
+		*(dest + i) = *src;
+		src++;
 		i++;
 	}
-	if (size > 0)
-		dest[dest_len + i] = '\0';
+	*(dest + i) = '\0';
 	return (dest_len + src_len);
 }
+
+
 
 /*
 * Esta función localiza la primera aparición de la cadena little en la cadena big, donde no más de len
