@@ -6,7 +6,7 @@
 /*   By: nico <nico@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/08 03:34:30 by nico             ###   ########.fr       */
+/*   Updated: 2023/12/08 03:49:25 by nico             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,37 +470,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 * Esta función devuelve una copia de s1 con los caracteres especificados en set eliminados
 * del principio y del final de la cadena.
 */
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	char *exit;
-	int i;
-	int j;
-	int	start_trim = 0;
-
-	if (s1 == NULL || set == NULL)
-		return NULL;
-	i = 0;
-	while (s1[i])
-	{
-		j = 0;
-		while(set[j])
-		{
-			if (s1[i] == set[j++])
-			{
-				start_trim ++;
-				break;
-			}
-		}
-		if (j >= ft_strlen(set))
-			break;
-		i++;
-	}
-
-	printf("Viejo string: %s \n", s1);
-	exit = ft_substr(s1, start_trim, (ft_strlen(s1) - start_trim));
-	printf("Nuevo string: %s \n", exit);
-	return 0;
-}
 // char	*ft_strtrim(char const *s1, char const *set)
 // {
 // 	char *exit;
@@ -511,24 +480,52 @@ char	*ft_strtrim(char const *s1, char const *set)
 // 	if (s1 == NULL || set == NULL)
 // 		return NULL;
 // 	i = 0;
-// 	while (set[i])
+// 	while (s1[i])
 // 	{
-// 		if (ft_strlen(ft_strchr(s1 , set[i])) < ft_strlen(s1))
+// 		j = 0;
+// 		while(set[j])
 // 		{
-// 			printf("aaaaaaa\n");
-// 			start_trim = (ft_strlen(s1) - ft_strlen(ft_strchr(s1 , set[i])));
+// 			if (s1[i] == set[j++])
+// 			{
+// 				start_trim ++;
+// 				break;
+// 			}
 // 		}
+// 		if (j >= ft_strlen(set))
+// 			break;
 // 		i++;
 // 	}
-	
-// 	printf("Coicidencias: %i \n", start_trim);
+
 // 	printf("Viejo string: %s \n", s1);
-	
+// 	exit = ft_substr(s1, start_trim, (ft_strlen(s1) - start_trim));
+// 	printf("Nuevo string: %s \n", exit);
 // 	return 0;
 // }
-
-int main(int argc, char const *argv[])
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	ft_strtrim("   Hello world", " Ht");
-	return 0;
+	char *exit;
+
+	if (s1 == NULL || set == NULL)
+		return NULL;
+	while (*s1)
+	{
+	    if (!ft_strchr(set, *s1))
+	        break;
+	    s1++;
+	}
+	while (*s1)
+	{
+		if (!ft_strrchr(set, *s1))
+			break;
+		s1++;
+	}
+	exit = malloc(ft_strlen(s1));
+	
+	return (ft_strdup(s1));
 }
+
+// int main(int argc, char const *argv[])
+// {
+// 	ft_strtrim("   Hello world", " Ht");
+// 	return 0;
+// }
