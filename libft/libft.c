@@ -6,7 +6,7 @@
 /*   By: nquecedo <nquecedo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 14:00:14 by nico              #+#    #+#             */
-/*   Updated: 2023/12/11 19:13:58 by nquecedo         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:31:09 by nquecedo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,46 +303,46 @@ size_t ft_strlcpy(char *dest, const char *src, size_t size)
 * Esta función añade la cadena de origen a la cadena de destino, pero para un total de no más de size
 * caracteres. Devuelve la longitud inicial de dest más la longitud de src.
 */
-// size_t ft_strlcat(char *dest, const char *src, size_t size)
-// {
-// 	if ((!dest || !src) && size == 0)
-// 		return (0);
-// 	size_t dest_len = ft_strlen(dest);
-// 	size_t src_len = ft_strlen(src);
-// 	size_t i = 0;
-	
-// 	if (size <= dest_len)
-// 		return (src_len + size);
-// 	while (src[i] != '\0' && (dest_len + i < size - 1))
-// 	{
-// 		dest[dest_len + i] = src[i];
-// 		i++;
-// 	}
-// 	if (size > 0)
-// 		dest[dest_len + i] = '\0';
-// 	return (dest_len + src_len);
-// }
-
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+size_t ft_strlcat(char *dest, const char *src, size_t size)
 {
-	unsigned int	i;
-	unsigned int	dest_len;
-	unsigned int	src_len;
-
-	dest_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
+	if ((!dest || !src) && size == 0)
+		return (0);
+	size_t dest_len = ft_strlen(dest);
+	size_t src_len = ft_strlen(src);
+	size_t i = 0;
+	
 	if (size <= dest_len)
-		return (size + src_len);
-	i = dest_len;
-	while (*src && i < (size - 1))
+		return (src_len + size);
+	while (src[i] != '\0' && (dest_len + i < size - 1))
 	{
-		*(dest + i) = *src;
-		src++;
+		dest[dest_len + i] = src[i];
 		i++;
 	}
-	*(dest + i) = '\0';
+	if (size > 0)
+		dest[dest_len + i] = '\0';
 	return (dest_len + src_len);
 }
+
+// unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+// {
+// 	unsigned int	i;
+// 	unsigned int	dest_len;
+// 	unsigned int	src_len;
+
+// 	dest_len = ft_strlen(dest);
+// 	src_len = ft_strlen(src);
+// 	if (size <= dest_len)
+// 		return (size + src_len);
+// 	i = dest_len;
+// 	while (*src && i < (size - 1))
+// 	{
+// 		*(dest + i) = *src;
+// 		src++;
+// 		i++;
+// 	}
+// 	*(dest + i) = '\0';
+// 	return (dest_len + src_len);
+// }
 
 
 
@@ -493,62 +493,41 @@ char	*ft_strjoin(char const *s1, char const *s2)
 * Esta función devuelve una copia de s1 con los caracteres especificados en set eliminados
 * del principio y del final de la cadena.
 */
-// char	*ft_strtrim(char const *s1, char const *set)
-// {
-// 	char *exit;
-// 	int i;
-// 	int j;
-// 	int	start_trim = 0;
 
-// 	if (s1 == NULL || set == NULL)
-// 		return NULL;
-// 	i = 0;
-// 	while (s1[i])
-// 	{
-// 		j = 0;
-// 		while(set[j])
-// 		{
-// 			if (s1[i] == set[j++])
-// 			{
-// 				start_trim ++;
-// 				break;
-// 			}
-// 		}
-// 		if (j >= ft_strlen(set))
-// 			break;
-// 		i++;
-// 	}
-
-// 	printf("Viejo string: %s \n", s1);
-// 	exit = ft_substr(s1, start_trim, (ft_strlen(s1) - start_trim));
-// 	printf("Nuevo string: %s \n", exit);
-// 	return 0;
-// }
 char	*ft_strtrim(char const *s1, char const *set)
 {
+	size_t start;
+	size_t len;
 	char *exit;
-
-	if (s1 == NULL || set == NULL)
-		return NULL;
-	while (*s1)
-	{
-	    if (!ft_strchr(set, *s1))
-	        break;
-	    s1++;
-	}
-	while (*s1)
-	{
-		if (!ft_strrchr(set, *s1))
-			break;
-		s1++;
-	}
-	exit = malloc(ft_strlen(s1));
 	
-	return (ft_strdup(s1));
+	if (!s1 || !set)
+		return NULL;
+	start = 0;
+	len = ft_strlen(s1) - 1;
+	while (s1[start] && ft_strchr(set, s1[start]))
+	    start++;
+	if (start == len + 1)
+		return(ft_strdup(""));
+
+	while(ft_strchr(set, s1[len]))
+		len --;
+	
+	exit = ft_substr(s1, start , len -start + 1);
+	if (!exit)
+		return (NULL);
+	return (exit);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	if (!s || !c)
+		return (NULL);
+
+	
 }
 
 // int main(int argc, char const *argv[])
 // {
-// 	ft_strtrim("   Hello world", " Ht");
+// 	ft_strtrim("   Hello world", "H");
 // 	return 0;
 // }
